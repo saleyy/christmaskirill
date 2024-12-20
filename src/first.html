@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>ich liebe dich</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+GB+S:ital,wght@0,100..400;1,100..400&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+          rel="stylesheet">
+</head>
+<body class="explain">
+
+<header class="header">
+    <section class="icon-header">
+    <a href="index.html" class="logo">🎄</a>
+    <section class="hilfe">
+        <p   class="gluehbirne" onclick="toggleTip()">💡</p>
+
+        <div class="hilfe-box" id="hilfeBox">
+            <span class="close-hilfe" onclick="toggleTip()">&times;</span>
+            <p id="hilfeText"></p>
+        </div>
+    </section>
+    </section>
+    <nav class="nav">
+        <a class="website-drauf" href="first.html"> homepage </a>
+        <a href="holiday.html"> holiday </a>
+        <a href="secret.html"> <3 </a>
+    </nav>
+</header>
+
+
+<section class="reihenfolge">
+
+    <section class="sues">
+
+        <h1> Frohe Weihnachten, mein Schatz! 🎄❤️ </h1>
+        <div> <p> Das ist meine allererste eigene Website, die ich ganz allein für dich gemacht habe! 😋😋 </p>
+        <p> Ich wollte dir damit etwas ganz Persönliches schenken, etwas, das von Herzen kommt – genau wie meine Liebe
+            zu dir.</p>
+        <p>Jede Zeile, jedes Bild und jeder Klick auf dieser Seite soll dir zeigen, wie viel du mir bedeutest.</p>
+        <p>Du bist für mich das größte Geschenk, und ich kann es kaum erwarten, noch viele weitere Weihnachten mit dir
+            zu verbringen. </p>
+        </div>
+
+        <div>
+            <p>
+                Kannst dich gerne mal durch klicken, aber du wirst schnell merken, dass es eine Seite gibt
+            </p>
+            <p>
+                bei der du ein Passwort brauchst und ja die Zeichen für das Passwort sind auf der ganzen Website versteckt.
+            </p>
+        </div>
+        <p>Ich liebe dich! 💖</p>
+    </section>
+
+
+
+
+</section>
+
+<section class="star-home">
+
+    <img  src= "bilder/star.jpg" alt="stern">
+    <img  src= "bilder/star.jpg" alt="stern">
+    <img  src= "bilder/star.jpg" alt="stern">
+    <img  src= "bilder/star.jpg" alt="stern">
+    <a href="star.html" id="specialStar">
+        <img src="bilder/star.jpg" alt="special star">
+    </a>
+    <img  src= "bilder/star.jpg" alt="stern">
+    <img  src= "bilder/star.jpg" alt="stern">
+    <img  src= "bilder/star.jpg" alt="stern">
+    <img  src= "bilder/star.jpg" alt="stern">
+    <img  src= "bilder/star.jpg" alt="stern">
+    <img  src= "bilder/star.jpg" alt="stern">
+    <img  src= "bilder/star.jpg" alt="stern">
+    <img  src= "bilder/star.jpg" alt="stern">
+    <img  src= "bilder/star.jpg" alt="stern">
+    <img  src= "bilder/star.jpg" alt="stern">
+
+
+
+</section>
+<script>
+
+    const tips = [
+        "brauchst vielleicht ne brille, wenn du nicht mal die obvious sachen merkst!",
+        "vielleicht hilft es, auf verschiedene sachen zu klicken.",
+        "ein kleiner hinweis könnte sich in den webtiteln verstecken.",
+        "manchmal ist weniger mehr – achte auf kleine details!",
+        "probier mal, die seiten ein bisschen weiter runterzuscrollen.",
+        "probier mal am anfang statt deinem namen nach nem tipp zu fragen.",
+        "ich liebe dich. geh zum anfang und antworte drauf"
+
+    ];
+
+    let clickCount = 0;
+
+    function toggleTip() {
+        const hilfeBox = document.getElementById("hilfeBox");
+        const hilfeText = document.getElementById("hilfeText");
+        const specialStar = document.getElementById("specialStar");
+
+        clickCount++;
+
+        // Wenn die Glühbirne angeklickt wird, zeige den zufälligen Tipp
+        if (hilfeBox.style.display === "none" || hilfeBox.style.display === "") {
+            const randomTip = tips[Math.floor(Math.random() * tips.length)];
+            hilfeText.textContent = randomTip;
+            hilfeBox.style.display = "block";
+        } else {
+            hilfeBox.style.display = "none";
+        }
+
+        // Wenn zweimal auf die Glühbirne geklickt wird, wackelt der besondere Stern
+        if (clickCount === 2) {
+            specialStar.classList.add("shake");
+            setTimeout(() => {
+                specialStar.classList.remove("shake");
+            }, 500); // Entfernt die Wackel-Animation nach 0.5 Sekunden
+            clickCount = 0; // Zurücksetzen des Klickzählers
+        }
+    }
+
+</script>
+</body>
+</html>

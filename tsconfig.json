@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "target": "es6",               // JavaScript Version, in die kompiliert wird
+        "module": "commonjs",           // Modultyp (kann auch "esnext" oder "es6" sein)
+        "strict": true,                 // Strikte Typüberprüfungen
+        "esModuleInterop": true,        // Import-Kompatibilität mit CommonJS-Modulen
+        "skipLibCheck": true,           // Überspringt Typüberprüfungen in .d.ts Dateien
+        "forceConsistentCasingInFileNames": true
+    },
+    "include": ["./**/*.ts"],         // Beinhaltet alle .ts Dateien im aktuellen Verzeichnis
+    "exclude": ["node_modules"]       // Schließt den node_modules Ordner aus
+}

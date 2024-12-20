@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>hihi</title>
+
+
+    <style>
+        canvas {
+            display: block;
+            margin: 20px auto;
+            border: 2px solid cornflowerblue;
+            background: pink;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: pink;
+            color: whitesmoke;
+            text-align: center;
+        }
+        #pongvortext{
+            margin: 300px;
+            margin-bottom: 500px;
+
+        }
+        #headerlastpage{
+            display: flex;
+            align-items: center;
+            font-family: "Playwrite GB S", cursive;
+            font-optical-sizing: auto;
+            text-decoration: none;
+            font-style: normal;
+            justify-content: space-between;
+            background-color: cornflowerblue;
+            padding: 10px 40px;
+            width: 99%;
+            height: 18px;
+            position: fixed;
+            top: 0;
+            left: -40px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000; /* Stellt sicher, dass der Header immer oben bleibt */
+
+        }
+        header::after{
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header id="headerlastpage">
+        <a href="first.html" class="logo"> ⏮️ </a>
+    </header>
+
+
+
+<div id="pongvortext">
+<p> Lost? Du hast die doch gekriegt.</p>
+<p> Hoffe die gefallen dir :) </p>
+<p>Und hier noch ein Minispiel</p>
+    <p> | </p>
+    <p> | </p>
+    <p> | </p>
+    <p> V </p>
+</div>
+
+<h1>Willkommen bei meinem Pong-Spiel!</h1>
+<p>Drücke die Leertaste, um das Spiel zu starten!</p>
+<canvas id="pongCanvas" width="800" height="600"></canvas>
+
+<script>
+    // JavaScript-Pong-Spiel
+    const canvas = document.getElementById('pongCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Variablen
+    const paddleWidth = 20, paddleHeight = 100, ballSize = 20;
+    let paddle1Y = (canvas.height - paddleHeight) / 2;
+    let paddle2Y = (canvas.height - paddleHeight) / 2;
+    let ballX = canvas.width / 2, ballY = canvas.height / 2;
+    let ballSpeedX = 3, ballSpeedY = 3;
+    let paddleSpeed = 7;
+    let player1Score = 0, player2Score = 0;
+
+    let gameRunning = false;
+
+    // Tastensteuerung
+    const keys = { w: false, s: false, ArrowUp: false, ArrowDown: false };
+    document.addEventListener('keydown', (e) => {
+        if (keys[e.key] !== undefined) {
+            keys[e.key] = true;
+            e.preventDefault(); // Verhindert das Scrollen
+        }
+    });
+
+    document.addEventListener('keyup', (e) => {
+        if (keys[e.key] !== undefined) {
+            keys[e.key] = false;
+            e.preventDefault(); // Optional, falls du sicherstellen willst, dass kein Scrollen stattfindet
+        }
+    });
+    // Spielupdate
+    function update() {
+        if (!gameRunning) return;
+
+        // Paddle 1 Bewegung
+        if (keys.w && paddle1Y > 0) paddle1Y -= paddleSpeed;
+        if (keys.s && paddle1Y < canvas.height - paddleHeight) paddle1Y += paddleSpeed;
+
+        // Paddle 2 Bewegung
+        if (keys.ArrowUp && paddle2Y > 0) paddle2Y -= paddleSpeed;
+        if (keys.ArrowDown && paddle2Y < canvas.height - paddleHeight) paddle2Y += paddleSpeed;
+
+        // Ballbewegung
+        ballX += ballSpeedX;
+        ballY += ballSpeedY;
+
+        // Kollision oben/unten
+        if (ballY <= 0 || ballY >= canvas.height - ballSize) ballSpeedY *= -1;
+
+        // Kollision mit Paddles
+        if (ballX <= paddleWidth && ballY + ballSize > paddle1Y && ballY < paddle1Y + paddleHeight) {
+            ballSpeedX *= -1;
+        }
+        if (ballX >= canvas.width - paddleWidth - ballSize && ballY + ballSize > paddle2Y && ballY < paddle2Y + paddleHeight) {
+            ballSpeedX *= -1;
+        }
+
+        // Punktestand und Reset
+        if (ballX <= 0) {
+            player2Score++;
+            resetBall();
+        }
+        if (ballX >= canvas.width - ballSize) {
+            player1Score++;
+            resetBall();
+        }
+    }
+
+    function resetBall() {
+        ballX = canvas.width / 2;
+        ballY = canvas.height / 2;
+        ballSpeedX *= -1;
+    }
+
+    // Zeichnen
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Hintergrund
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+0
+1        // Paddles
+        ctx.fillStyle = 'cornflowerblue';
+        ctx.fillRect(0, paddle1Y, paddleWidth, paddleHeight);
+        ctx.fillRect(canvas.width - paddleWidth, paddle2Y, paddleWidth, paddleHeight);
+
+        // Ball
+        ctx.beginPath();
+        ctx.arc(ballX, ballY, ballSize / 2, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Punkteanzeige
+        ctx.font = '20px Arial';
+        ctx.fillText(`Kirill: ${player1Score}`, 20, 30);
+        ctx.fillText(`Salma: ${player2Score}`, canvas.width - 140, 30);
+    }
+
+    // Game Loop
+    function loop() {
+        update();
+        draw();
+        requestAnimationFrame(loop);
+    }
+
+    // Spiel starten
+    document.addEventListener('keydown', (e) => {
+        if (e.code === 'Space') {
+            gameRunning = !gameRunning;
+        }
+    });
+
+    loop();
+</script>
+</body>
+</html>
